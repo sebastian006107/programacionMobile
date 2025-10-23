@@ -1,1 +1,1 @@
-# programacionMobile
+Repositorio para asginatura Programación Aplicaciones Móviles
