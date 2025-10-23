@@ -8,9 +8,20 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LoginPage implements OnInit {
 
+  usuario: string = '';
+  password: string = '';
+
   constructor() { }
 
   ngOnInit() {
+  }
+
+  login() {
+    if (this.usuario && this.password) {
+      alert('Bienvenido');
+    } else {
+      alert('Completa los campos');
+    }
   }
 
 }
