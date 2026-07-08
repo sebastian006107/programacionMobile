@@ -1,0 +1,107 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/home"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Presupuestos</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <!-- Definir el límite de una categoría para un mes -->
+  <ion-card>
+    <ion-card-header>
+      <ion-card-subtitle>Definir presupuesto</ion-card-subtitle>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-list lines="full" class="formulario">
+        <ion-item>
+          <ion-icon slot="start" name="calendar-outline" class="icono-campo"></ion-icon>
+          <ion-input
+            type="month"
+            label="Mes"
+            labelPlacement="stacked"
+            [(ngModel)]="mes"
+            (ionChange)="cambiarMes()">
+          </ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-icon slot="start" name="pricetags-outline" class="icono-campo"></ion-icon>
+          <ion-select
+            label="Categoría"
+            labelPlacement="stacked"
+            interface="popover"
+            [(ngModel)]="categoriaId"
+            placeholder="Selecciona una categoría">
+            <ion-select-option *ngFor="let c of categorias" [value]="c.id">
+              {{ c.nombre }}
+            </ion-select-option>
+          </ion-select>
+        </ion-item>
+
+        <ion-item lines="none">
+          <ion-icon slot="start" name="cash-outline" class="icono-campo"></ion-icon>
+          <ion-input
+            type="number"
+            label="Límite (CLP)"
+            labelPlacement="stacked"
+            [(ngModel)]="montoLimite"
+            placeholder="0">
+          </ion-input>
+        </ion-item>
+      </ion-list>
+
+      <ion-button expand="block" class="ion-margin-top" (click)="guardar()">
+        Guardar presupuesto
+      </ion-button>
+    </ion-card-content>
+  </ion-card>
+
+  <!-- Comparación: gastado vs límite -->
+  <ion-list class="lista-presupuestos" [inset]="true" *ngIf="presupuestos.length > 0">
+    <ion-list-header>
+      <ion-label>Gastado vs límite — {{ mes }}</ion-label>
+    </ion-list-header>
+
+    <ion-item-sliding *ngFor="let p of presupuestos">
+      <ion-item lines="full">
+        <ion-label>
+          <div class="cabecera">
+            <h2>{{ p.categoria_nombre }}</h2>
+            <span class="porcentaje">{{ porcentaje(p) | number:'1.0-0' }}%</span>
+          </div>
+
+          <p class="cifras">
+            ${{ p.gastado | number:'1.0-0' }} de ${{ p.monto_limite | number:'1.0-0' }}
+          </p>
+
+          <ion-progress-bar [value]="proporcion(p)" [color]="color(p)"></ion-progress-bar>
+
+          <p class="estado">
+            <!-- Sin verde: en verde brillante chocaba con la paleta beige.
+                 Neutro cuando vas bien, rojo solo cuando importa (excedido). -->
+            <ion-text [color]="excedido(p) ? 'danger' : 'medium'">
+              <span *ngIf="!excedido(p)">Te quedan ${{ restante(p) | number:'1.0-0' }}</span>
+              <span *ngIf="excedido(p)">Excedido por ${{ -restante(p) | number:'1.0-0' }}</span>
+            </ion-text>
+          </p>
+        </ion-label>
+      </ion-item>
+
+      <ion-item-options side="end">
+        <ion-item-option color="danger" (click)="eliminar(p)">
+          <ion-icon slot="start" name="trash-outline"></ion-icon>
+          Eliminar
+        </ion-item-option>
+      </ion-item-options>
+    </ion-item-sliding>
+  </ion-list>
+
+  <!-- Estado vacío -->
+  <div class="estado-vacio" *ngIf="presupuestos.length === 0">
+    <ion-icon name="wallet-outline"></ion-icon>
+    <h2>Sin presupuestos</h2>
+    <p>No hay presupuestos definidos para {{ mes }}.</p>
+  </div>
+</ion-content>

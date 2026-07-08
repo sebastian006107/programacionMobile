@@ -1,0 +1,62 @@
+// Tema de MiBilletera — paleta beige/arena, minimalista.
+// Solo variables de tema de Ionic (permitido por la spec). Sin librerías externas.
+// https://ionicframework.com/docs/theming/
+
+/* ------------------------------------------------------------------ */
+/* Modo claro                                                          */
+/* ------------------------------------------------------------------ */
+:root {
+  /* Color primario: taupe cálido. Contraste con blanco ≈ 5.2:1 (WCAG AA). */
+  --ion-color-primary: #7a6a5a;
+  --ion-color-primary-rgb: 122, 106, 90;
+  --ion-color-primary-contrast: #ffffff;
+  --ion-color-primary-contrast-rgb: 255, 255, 255;
+  --ion-color-primary-shade: #6b5d4f;
+  --ion-color-primary-tint: #877869;
+
+  /* Fondo arena y texto cálido oscuro */
+  --ion-background-color: #f7f3ec;
+  --ion-background-color-rgb: 247, 243, 236;
+  --ion-text-color: #2f2a24;
+  --ion-text-color-rgb: 47, 42, 36;
+
+  /* Superficies (tarjetas, ítems, barra superior) */
+  --ion-card-background: #fffdf9;
+  --ion-item-background: #fffdf9;
+  --ion-toolbar-background: #f7f3ec;
+  --ion-toolbar-color: #2f2a24;
+  --ion-border-color: #e6ded1;
+}
+
+/* ------------------------------------------------------------------ */
+/* Modo oscuro (la app sigue el tema del sistema vía dark.system.css)   */
+/* Este bloque va después de esa hoja, así que la sobrescribe.          */
+/* ------------------------------------------------------------------ */
+@media (prefers-color-scheme: dark) {
+  /* Ionic define los --ion-color-* en `:root`, así que aquí basta con `:root`. */
+  :root {
+    /* En oscuro el primario se aclara (arena) y el texto sobre él pasa a ser oscuro. */
+    --ion-color-primary: #cbb59a;
+    --ion-color-primary-rgb: 203, 181, 154;
+    --ion-color-primary-contrast: #241f1a;
+    --ion-color-primary-contrast-rgb: 36, 31, 26;
+    --ion-color-primary-shade: #b39f88;
+    --ion-color-primary-tint: #d0bca4;
+  }
+
+  /* OJO: Ionic define los fondos bajo `:root.md` / `:root.ios` (especificidad 0,2,0).
+     Con un simple `:root` (0,1,0) NO se sobrescriben. Igualamos la especificidad. */
+  :root.md,
+  :root.ios {
+    --ion-background-color: #1b1815;
+    --ion-background-color-rgb: 27, 24, 21;
+    --ion-text-color: #ece7df;
+    --ion-text-color-rgb: 236, 231, 223;
+
+    --ion-card-background: #24201c;
+    --ion-item-background: #24201c;
+    --ion-toolbar-background: #1f1c19;
+    --ion-toolbar-color: #ece7df;
+    --ion-border-color: #38322c;
+  }
+}

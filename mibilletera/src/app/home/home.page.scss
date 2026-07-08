@@ -1,0 +1,99 @@
+/* Tarjeta del total: el dato más importante de la pantalla */
+.tarjeta-total {
+  .monto-total {
+    font-size: 2.125rem;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    color: var(--ion-text-color);
+  }
+
+  .resumen {
+    padding-top: 0;
+    font-size: 0.8125rem;
+    color: var(--ion-color-medium);
+  }
+}
+
+/* Valores del día traídos de mindicador.cl */
+.indicadores {
+  margin: 0 0 0.5rem;
+  font-size: 0.8125rem;
+  color: var(--ion-color-medium);
+
+  &--error {
+    color: var(--ion-color-danger);
+  }
+}
+
+/* El ion-item del selector va dentro de una tarjeta: quitamos su padding lateral */
+.campo {
+  --padding-start: 0;
+  --inner-padding-end: 0;
+  --background: transparent;
+}
+
+.resultado-conversion {
+  margin: 1rem 0 0;
+  text-align: center;
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--ion-color-primary);
+}
+
+/* Aire al final para que el FAB no tape el último gasto.
+   Va en el contenido, no en la lista: con [inset] el padding quedaría
+   dentro del recuadro redondeado y dejaría un hueco vacío. */
+ion-content {
+  --padding-bottom: 4.5rem;
+}
+
+.lista-gastos {
+  background: transparent;
+}
+
+.icono-categoria {
+  font-size: 1.375rem;
+  color: var(--ion-color-medium);
+  margin-inline-end: 1rem;
+}
+
+ion-thumbnail {
+  --size: 44px;
+  --border-radius: 8px;
+  margin-inline-end: 1rem;
+}
+
+.pin {
+  font-size: 0.8125rem;
+  vertical-align: -2px;
+  color: var(--ion-color-medium);
+}
+
+.monto {
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: var(--ion-text-color);
+}
+
+/* Estado vacío */
+.estado-vacio {
+  padding: 3rem 1.5rem;
+  text-align: center;
+  color: var(--ion-color-medium);
+
+  ion-icon {
+    font-size: 3.5rem;
+    opacity: 0.45;
+  }
+
+  h2 {
+    margin: 0.75rem 0 0.25rem;
+    font-size: 1.0625rem;
+    font-weight: 600;
+  }
+
+  p {
+    margin: 0;
+    font-size: 0.875rem;
+  }
+}

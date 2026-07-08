@@ -1,0 +1,28 @@
+# Dependencias y artefactos de build (los ignora también mibilletera/.gitignore)
+node_modules/
+www/
+dist/
+
+# Android: builds y configuración local de máquina
+android/build/
+android/app/build/
+android/.gradle/
+local.properties
+
+# Claves de firma del APK — NUNCA subir al repositorio
+*.jks
+*.keystore
+keystore.properties
+key.properties
+
+# IDEs
+.idea/
+.vscode/
+*.iml
+
+# Sistema operativo
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log

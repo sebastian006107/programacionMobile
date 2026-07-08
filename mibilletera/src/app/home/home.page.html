@@ -1,0 +1,121 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar>
+    <ion-title>MiBilletera</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="irPresupuesto()" aria-label="Presupuestos">
+        <ion-icon slot="icon-only" name="wallet-outline"></ion-icon>
+      </ion-button>
+      <ion-button (click)="cerrarSesion()" aria-label="Cerrar sesión">
+        <ion-icon slot="icon-only" name="log-out-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <!-- Total calculado al vuelo (no se guarda en BD) -->
+  <ion-card class="tarjeta-total">
+    <ion-card-header>
+      <ion-card-subtitle>Total gastado</ion-card-subtitle>
+      <ion-card-title class="monto-total">${{ total | number:'1.0-0' }}</ion-card-title>
+    </ion-card-header>
+    <ion-card-content class="resumen">
+      {{ gastos.length }} {{ gastos.length === 1 ? 'gasto registrado' : 'gastos registrados' }}
+    </ion-card-content>
+  </ion-card>
+
+  <!-- Conversión de moneda con la API de mindicador.cl -->
+  <ion-card>
+    <ion-card-header>
+      <ion-card-subtitle>Convertir total</ion-card-subtitle>
+    </ion-card-header>
+    <ion-card-content>
+      <!-- Valores del día (cargados con subscribe = consulta asíncrona) -->
+      <p class="indicadores" *ngIf="indicadores">
+        Dólar ${{ indicadores.dolar.valor | number:'1.2-2' }}
+        · Euro ${{ indicadores.euro.valor | number:'1.2-2' }}
+      </p>
+      <p class="indicadores indicadores--error" *ngIf="!indicadores">
+        No se pudieron cargar los indicadores (sin conexión).
+      </p>
+
+      <ion-item lines="none" class="campo">
+        <ion-select
+          label="Moneda"
+          labelPlacement="stacked"
+          interface="popover"
+          [(ngModel)]="moneda"
+          (ionChange)="cambiarMoneda()">
+          <ion-select-option value="dolar">Dólar (USD)</ion-select-option>
+          <ion-select-option value="euro">Euro (EUR)</ion-select-option>
+        </ion-select>
+      </ion-item>
+
+      <ion-button
+        expand="block"
+        fill="outline"
+        class="ion-margin-top"
+        [disabled]="cargandoConversion"
+        (click)="convertirTotal()">
+        <ion-icon slot="start" name="swap-horizontal"></ion-icon>
+        {{ cargandoConversion ? 'Convirtiendo...' : 'Convertir' }}
+      </ion-button>
+
+      <p class="resultado-conversion" *ngIf="totalConvertido != null">
+        {{ moneda === 'dolar' ? 'US$' : '€' }}{{ totalConvertido | number:'1.2-2' }}
+      </p>
+    </ion-card-content>
+  </ion-card>
+
+  <!-- Lista de gastos -->
+  <ion-list class="lista-gastos" [inset]="true" *ngIf="gastos.length > 0">
+    <ion-list-header>
+      <ion-label>Gastos</ion-label>
+    </ion-list-header>
+
+    <ion-item-sliding *ngFor="let g of gastos">
+      <ion-item button detail="false" (click)="irEditar(g.id)">
+        <!-- Miniatura del recibo si hay foto; si no, el icono de la categoría -->
+        <ion-thumbnail slot="start" *ngIf="g.foto">
+          <img [src]="g.foto" alt="Foto del recibo" />
+        </ion-thumbnail>
+        <ion-icon
+          *ngIf="!g.foto"
+          slot="start"
+          class="icono-categoria"
+          [name]="g.categoria_icono || 'pricetag'">
+        </ion-icon>
+
+        <ion-label>
+          <h2>{{ g.descripcion }}</h2>
+          <p>
+            {{ g.categoria_nombre }} · {{ g.fecha | date:'dd-MM-yyyy' }}
+            <ion-icon *ngIf="g.latitud != null" name="location" class="pin" aria-label="Con ubicación"></ion-icon>
+          </p>
+        </ion-label>
+        <ion-note slot="end" class="monto">${{ g.monto | number:'1.0-0' }}</ion-note>
+      </ion-item>
+
+      <ion-item-options side="end">
+        <ion-item-option color="danger" (click)="eliminar(g.id)">
+          <ion-icon slot="start" name="trash-outline"></ion-icon>
+          Eliminar
+        </ion-item-option>
+      </ion-item-options>
+    </ion-item-sliding>
+  </ion-list>
+
+  <!-- Estado vacío -->
+  <div class="estado-vacio" *ngIf="gastos.length === 0">
+    <ion-icon name="receipt-outline"></ion-icon>
+    <h2>Sin gastos aún</h2>
+    <p>Toca el botón + para registrar tu primer gasto.</p>
+  </div>
+
+  <!-- Botón flotante para agregar -->
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button (click)="irAgregar()" aria-label="Agregar gasto">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+</ion-content>

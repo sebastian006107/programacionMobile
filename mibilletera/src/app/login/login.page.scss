@@ -1,0 +1,49 @@
+/* Centra el bloque de login verticalmente dentro del contenido */
+.login-wrap {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: 100%;
+}
+
+.marca {
+  text-align: center;
+  margin-bottom: 1.5rem;
+
+  ion-icon {
+    font-size: 3rem;
+    color: var(--ion-color-primary);
+  }
+
+  h1 {
+    margin: 0.5rem 0 0.25rem;
+    font-size: 1.5rem;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    color: var(--ion-text-color);
+  }
+
+  p {
+    margin: 0;
+    font-size: 0.875rem;
+    color: var(--ion-color-medium);
+  }
+}
+
+/* Los ion-item viven dentro de la tarjeta: sin fondo propio ni padding lateral */
+.campos ion-item {
+  --background: transparent;
+  --padding-start: 0;
+}
+
+.icono-campo {
+  color: var(--ion-color-medium);
+  margin-inline-end: 0.875rem;
+}
+
+.pista {
+  margin: 1rem 0 0;
+  text-align: center;
+  font-size: 0.75rem;
+  color: var(--ion-color-medium);
+}

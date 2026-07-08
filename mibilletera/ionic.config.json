@@ -1,0 +1,7 @@
+{
+  "name": "mibilletera",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}

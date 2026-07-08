@@ -1,0 +1,77 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/login"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Crear cuenta</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <div class="marca">
+    <ion-icon name="person-add-outline"></ion-icon>
+    <h1>Crea tu cuenta</h1>
+    <p>Empieza a controlar tus gastos</p>
+  </div>
+
+  <ion-card>
+    <ion-card-content>
+      <ion-list lines="full" class="formulario">
+        <ion-item>
+          <ion-icon slot="start" name="person-outline" class="icono-campo"></ion-icon>
+          <ion-input
+            label="Nombre"
+            labelPlacement="stacked"
+            [(ngModel)]="nombre"
+            placeholder="Ej: Sebastián">
+          </ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-icon slot="start" name="mail-outline" class="icono-campo"></ion-icon>
+          <ion-input
+            type="email"
+            label="Email"
+            labelPlacement="stacked"
+            [(ngModel)]="email"
+            placeholder="tu@correo.cl">
+          </ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-icon slot="start" name="lock-closed-outline" class="icono-campo"></ion-icon>
+          <ion-input
+            type="password"
+            label="Contraseña"
+            labelPlacement="stacked"
+            [(ngModel)]="password"
+            placeholder="Mínimo 4 caracteres">
+          </ion-input>
+        </ion-item>
+
+        <ion-item lines="none">
+          <ion-icon slot="start" name="lock-closed-outline" class="icono-campo"></ion-icon>
+          <ion-input
+            type="password"
+            label="Confirmar contraseña"
+            labelPlacement="stacked"
+            [(ngModel)]="confirmar"
+            placeholder="Repite la contraseña">
+          </ion-input>
+        </ion-item>
+      </ion-list>
+
+      <ion-button
+        expand="block"
+        class="ion-margin-top"
+        [disabled]="guardando"
+        (click)="crearCuenta()">
+        {{ guardando ? 'Creando cuenta...' : 'Crear cuenta' }}
+      </ion-button>
+
+      <ion-button expand="block" fill="clear" (click)="irLogin()">
+        Ya tengo cuenta
+      </ion-button>
+    </ion-card-content>
+  </ion-card>
+</ion-content>

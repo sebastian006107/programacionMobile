@@ -1,0 +1,10 @@
+// Estilos compartidos con la página de agregar
+@use '../../theme/formulario';
+
+.acciones-guardar {
+  padding: 0 1rem 1.5rem;
+
+  ion-button + ion-button {
+    margin-top: 0.25rem;
+  }
+}

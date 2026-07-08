@@ -1,0 +1,69 @@
+// Reutiliza los estilos de formulario (ítems dentro de una tarjeta)
+@use '../../theme/formulario';
+
+ion-content {
+  --padding-bottom: 1.5rem;
+}
+
+.lista-presupuestos {
+  background: transparent;
+}
+
+/* Nombre de la categoría a la izquierda, porcentaje a la derecha */
+.cabecera {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.5rem;
+
+  h2 {
+    margin: 0;
+    font-weight: 600;
+  }
+}
+
+.porcentaje {
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--ion-color-medium);
+}
+
+.cifras {
+  margin: 0.25rem 0 0.5rem;
+  font-size: 0.8125rem;
+  color: var(--ion-color-medium);
+}
+
+.estado {
+  margin: 0.5rem 0 0;
+  font-size: 0.8125rem;
+}
+
+/* Barra de progreso con un poco más de cuerpo y esquinas suaves */
+ion-progress-bar {
+  height: 6px;
+  border-radius: 3px;
+}
+
+/* Estado vacío */
+.estado-vacio {
+  padding: 3rem 1.5rem;
+  text-align: center;
+  color: var(--ion-color-medium);
+
+  ion-icon {
+    font-size: 3.5rem;
+    opacity: 0.45;
+  }
+
+  h2 {
+    margin: 0.75rem 0 0.25rem;
+    font-size: 1.0625rem;
+    font-weight: 600;
+  }
+
+  p {
+    margin: 0;
+    font-size: 0.875rem;
+  }
+}

@@ -1,0 +1,100 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/home"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Editar gasto</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <!-- Datos del gasto (precargados) -->
+  <ion-card>
+    <ion-card-content>
+      <ion-list lines="full" class="formulario">
+        <ion-item>
+          <ion-icon slot="start" name="create-outline" class="icono-campo"></ion-icon>
+          <ion-input
+            label="Descripción"
+            labelPlacement="stacked"
+            [(ngModel)]="descripcion"
+            placeholder="Ej: Almuerzo">
+          </ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-icon slot="start" name="cash-outline" class="icono-campo"></ion-icon>
+          <ion-input
+            type="number"
+            label="Monto (CLP)"
+            labelPlacement="stacked"
+            [(ngModel)]="monto"
+            placeholder="0">
+          </ion-input>
+        </ion-item>
+
+        <ion-item lines="none">
+          <ion-icon slot="start" name="pricetags-outline" class="icono-campo"></ion-icon>
+          <ion-select
+            label="Categoría"
+            labelPlacement="stacked"
+            interface="popover"
+            [(ngModel)]="categoriaId"
+            placeholder="Selecciona una categoría">
+            <ion-select-option *ngFor="let c of categorias" [value]="c.id">
+              {{ c.nombre }}
+            </ion-select-option>
+          </ion-select>
+        </ion-item>
+      </ion-list>
+    </ion-card-content>
+  </ion-card>
+
+  <!-- Plugins nativos: cámara y geolocalización -->
+  <ion-card>
+    <ion-card-header>
+      <ion-card-subtitle>Recibo y ubicación</ion-card-subtitle>
+    </ion-card-header>
+    <ion-card-content>
+      <div class="acciones-nativas">
+        <ion-button expand="block" fill="outline" (click)="tomarFoto()">
+          <ion-icon slot="start" name="camera-outline"></ion-icon>
+          {{ foto ? 'Cambiar foto' : 'Tomar foto del recibo' }}
+        </ion-button>
+
+        <ion-button
+          expand="block"
+          fill="outline"
+          [disabled]="cargandoUbicacion"
+          (click)="obtenerUbicacion()">
+          <ion-icon slot="start" name="location-outline"></ion-icon>
+          {{ cargandoUbicacion ? 'Obteniendo ubicación...' : (latitud != null ? 'Actualizar ubicación' : 'Obtener ubicación') }}
+        </ion-button>
+      </div>
+
+      <figure class="preview-foto" *ngIf="foto">
+        <img [src]="foto" alt="Foto del recibo" />
+        <ion-button size="small" fill="clear" color="danger" (click)="quitarFoto()">
+          Quitar foto
+        </ion-button>
+      </figure>
+
+      <ion-item lines="none" class="ubicacion" *ngIf="latitud != null && longitud != null">
+        <ion-icon slot="start" name="pin" color="medium"></ion-icon>
+        <ion-label>
+          <p class="coordenadas">
+            Lat {{ latitud | number:'1.4-4' }} · Lon {{ longitud | number:'1.4-4' }}
+          </p>
+        </ion-label>
+      </ion-item>
+    </ion-card-content>
+  </ion-card>
+
+  <div class="acciones-guardar">
+    <ion-button expand="block" (click)="actualizar()">Guardar cambios</ion-button>
+    <ion-button expand="block" fill="clear" color="danger" (click)="eliminar()">
+      <ion-icon slot="start" name="trash-outline"></ion-icon>
+      Eliminar gasto
+    </ion-button>
+  </div>
+</ion-content>

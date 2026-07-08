@@ -1,0 +1,44 @@
+// Estilos compartidos por los formularios de gasto (agregar y editar).
+// Se importa con @use desde cada page.scss para no duplicar reglas.
+
+/* Los ion-item viven dentro de una ion-card: sin fondo ni padding propios */
+.formulario ion-item {
+  --background: transparent;
+  --padding-start: 0;
+}
+
+.icono-campo {
+  color: var(--ion-color-medium);
+  margin-inline-end: 0.875rem;
+}
+
+/* Botones de cámara y geolocalización, apilados */
+.acciones-nativas {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+/* Vista previa de la foto del recibo */
+.preview-foto {
+  margin: 1rem 0 0;
+  text-align: center;
+
+  img {
+    display: block;
+    max-width: 100%;
+    margin: 0 auto;
+    border-radius: 8px;
+  }
+}
+
+.ubicacion {
+  --background: transparent;
+  --padding-start: 0;
+}
+
+.coordenadas {
+  margin: 0;
+  font-size: 0.8125rem;
+  color: var(--ion-color-medium);
+}

@@ -1,0 +1,48 @@
+<ion-content class="ion-padding">
+  <div class="login-wrap">
+    <!-- Marca de la app -->
+    <div class="marca">
+      <ion-icon name="wallet-outline"></ion-icon>
+      <h1>MiBilletera</h1>
+      <p>Controla tus gastos personales</p>
+    </div>
+
+    <ion-card>
+      <ion-card-content>
+        <ion-list lines="full" class="campos">
+          <ion-item>
+            <ion-icon slot="start" name="mail-outline" class="icono-campo"></ion-icon>
+            <ion-input
+              type="email"
+              label="Email"
+              labelPlacement="stacked"
+              [(ngModel)]="email"
+              placeholder="demo@mibilletera.cl">
+            </ion-input>
+          </ion-item>
+
+          <ion-item lines="none">
+            <ion-icon slot="start" name="lock-closed-outline" class="icono-campo"></ion-icon>
+            <ion-input
+              type="password"
+              label="Contraseña"
+              labelPlacement="stacked"
+              [(ngModel)]="password"
+              placeholder="••••">
+            </ion-input>
+          </ion-item>
+        </ion-list>
+
+        <ion-button expand="block" class="ion-margin-top" (click)="ingresar()">
+          Ingresar
+        </ion-button>
+
+        <ion-button expand="block" fill="clear" (click)="irRegistro()">
+          Crear cuenta
+        </ion-button>
+
+        <p class="pista">Usuario de prueba: demo&#64;mibilletera.cl / 1234</p>
+      </ion-card-content>
+    </ion-card>
+  </div>
+</ion-content>
