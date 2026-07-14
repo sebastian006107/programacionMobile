@@ -7,6 +7,7 @@ import { Geolocation } from '@capacitor/geolocation';
 import { DbserviceService } from '../services/dbservice.service';
 import { Categoria } from '../models/categoria';
 import { Gasto } from '../models/gasto';
+import { fechaLocalISO } from '../utils/fecha';
 
 @Component({
   selector: 'app-agregar',
@@ -95,7 +96,7 @@ export class AgregarPage implements OnInit {
       descripcion: this.descripcion.trim(),
       monto: Number(this.monto),
       categoria_id: this.categoriaId,
-      fecha: new Date().toISOString(),
+      fecha: fechaLocalISO(),
       foto: this.foto,
       latitud: this.latitud,
       longitud: this.longitud,

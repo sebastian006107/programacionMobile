@@ -92,9 +92,12 @@ export class HomePage implements OnInit {
     this.router.navigate(['/agregar']);
   }
 
-  cerrarSesion() {
-    localStorage.removeItem('sesion');
-    this.router.navigate(['/login']);
+  irResumen() {
+    this.router.navigate(['/resumen']);
+  }
+
+  irPerfil() {
+    this.router.navigate(['/perfil']);
   }
 
   irEditar(id?: number) {

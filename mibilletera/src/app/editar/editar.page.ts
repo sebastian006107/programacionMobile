@@ -7,6 +7,7 @@ import { Geolocation } from '@capacitor/geolocation';
 import { DbserviceService } from '../services/dbservice.service';
 import { Categoria } from '../models/categoria';
 import { Gasto } from '../models/gasto';
+import { fechaLocalISO } from '../utils/fecha';
 
 @Component({
   selector: 'app-editar',
@@ -119,7 +120,7 @@ export class EditarPage implements OnInit {
       monto: Number(this.monto),
       categoria_id: this.categoriaId,
       // La fecha original se conserva; foto y ubicación son las del formulario.
-      fecha: this.gastoOriginal?.fecha ?? new Date().toISOString(),
+      fecha: this.gastoOriginal?.fecha ?? fechaLocalISO(),
       foto: this.foto,
       latitud: this.latitud,
       longitud: this.longitud,

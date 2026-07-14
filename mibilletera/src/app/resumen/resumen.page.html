@@ -1,0 +1,53 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/home"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Resumen</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <!-- Total y categoría con mayor gasto -->
+  <ion-card>
+    <ion-card-header>
+      <ion-card-subtitle>Total gastado</ion-card-subtitle>
+      <ion-card-title class="monto-total">${{ total | number:'1.0-0' }}</ion-card-title>
+    </ion-card-header>
+    <ion-card-content class="resumen-extra" *ngIf="mayor">
+      Donde más gastas: <strong>{{ mayor.nombre }}</strong>
+      ({{ porcentaje(mayor) | number:'1.0-0' }}% del total)
+    </ion-card-content>
+  </ion-card>
+
+  <!-- Desglose por categoría -->
+  <ion-list class="lista-resumen" [inset]="true" *ngIf="conGastos.length > 0">
+    <ion-list-header>
+      <ion-label>Por categoría</ion-label>
+    </ion-list-header>
+
+    <ion-item *ngFor="let r of conGastos" lines="full">
+      <ion-icon slot="start" [name]="r.icono || 'pricetag'" class="icono-categoria"></ion-icon>
+      <ion-label>
+        <div class="cabecera">
+          <h2>{{ r.nombre }}</h2>
+          <span class="monto">${{ r.total | number:'1.0-0' }}</span>
+        </div>
+
+        <p class="detalle">
+          {{ r.cantidad }} {{ r.cantidad === 1 ? 'gasto' : 'gastos' }}
+          · {{ porcentaje(r) | number:'1.0-0' }}% del total
+        </p>
+
+        <ion-progress-bar [value]="proporcion(r)" color="primary"></ion-progress-bar>
+      </ion-label>
+    </ion-item>
+  </ion-list>
+
+  <!-- Estado vacío -->
+  <div class="estado-vacio" *ngIf="conGastos.length === 0">
+    <ion-icon name="stats-chart-outline"></ion-icon>
+    <h2>Nada que resumir</h2>
+    <p>Registra algunos gastos y verás aquí en qué se te va el dinero.</p>
+  </div>
+</ion-content>

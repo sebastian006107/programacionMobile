@@ -1,0 +1,88 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/home"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Mi cuenta</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <!-- Datos del usuario -->
+  <ion-card>
+    <ion-card-content class="perfil">
+      <div class="avatar">{{ inicial }}</div>
+      <h2>{{ nombre }}</h2>
+      <p>{{ email }}</p>
+    </ion-card-content>
+  </ion-card>
+
+  <!-- Accesos -->
+  <ion-list [inset]="true" class="accesos">
+    <ion-item button detail="true" (click)="irCategorias()">
+      <ion-icon slot="start" name="pricetags-outline" class="icono-acceso"></ion-icon>
+      <ion-label>
+        <h2>Categorías</h2>
+        <p>Crear, editar o eliminar categorías</p>
+      </ion-label>
+    </ion-item>
+  </ion-list>
+
+  <!-- Cambio de contraseña -->
+  <ion-card>
+    <ion-card-header>
+      <ion-card-subtitle>Cambiar contraseña</ion-card-subtitle>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-list lines="full" class="formulario">
+        <ion-item>
+          <ion-icon slot="start" name="lock-closed-outline" class="icono-campo"></ion-icon>
+          <ion-input
+            type="password"
+            label="Contraseña actual"
+            labelPlacement="stacked"
+            [(ngModel)]="passwordActual"
+            placeholder="Tu contraseña de ahora">
+          </ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-icon slot="start" name="key-outline" class="icono-campo"></ion-icon>
+          <ion-input
+            type="password"
+            label="Nueva contraseña"
+            labelPlacement="stacked"
+            [(ngModel)]="passwordNueva"
+            placeholder="Mínimo 4 caracteres">
+          </ion-input>
+        </ion-item>
+
+        <ion-item lines="none">
+          <ion-icon slot="start" name="key-outline" class="icono-campo"></ion-icon>
+          <ion-input
+            type="password"
+            label="Confirmar nueva"
+            labelPlacement="stacked"
+            [(ngModel)]="passwordConfirmar"
+            placeholder="Repite la nueva">
+          </ion-input>
+        </ion-item>
+      </ion-list>
+
+      <ion-button
+        expand="block"
+        class="ion-margin-top"
+        [disabled]="cambiando"
+        (click)="cambiarPassword()">
+        {{ cambiando ? 'Guardando...' : 'Actualizar contraseña' }}
+      </ion-button>
+    </ion-card-content>
+  </ion-card>
+
+  <div class="acciones-salir">
+    <ion-button expand="block" fill="clear" color="danger" (click)="cerrarSesion()">
+      <ion-icon slot="start" name="log-out-outline"></ion-icon>
+      Cerrar sesión
+    </ion-button>
+  </div>
+</ion-content>

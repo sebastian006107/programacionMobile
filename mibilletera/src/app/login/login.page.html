@@ -33,15 +33,18 @@
           </ion-item>
         </ion-list>
 
-        <ion-button expand="block" class="ion-margin-top" (click)="ingresar()">
-          Ingresar
+        <ion-button
+          expand="block"
+          class="ion-margin-top"
+          [disabled]="ingresando"
+          (click)="ingresar()">
+          {{ ingresando ? 'Ingresando...' : 'Ingresar' }}
         </ion-button>
 
         <ion-button expand="block" fill="clear" (click)="irRegistro()">
           Crear cuenta
         </ion-button>
 
-        <p class="pista">Usuario de prueba: demo&#64;mibilletera.cl / 1234</p>
       </ion-card-content>
     </ion-card>
   </div>

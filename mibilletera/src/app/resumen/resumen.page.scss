@@ -1,0 +1,79 @@
+ion-content {
+  --padding-bottom: 1.5rem;
+}
+
+.monto-total {
+  font-size: 2.125rem;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  color: var(--ion-text-color);
+}
+
+.resumen-extra {
+  padding-top: 0;
+  font-size: 0.8125rem;
+  color: var(--ion-color-medium);
+}
+
+.lista-resumen {
+  background: transparent;
+}
+
+.icono-categoria {
+  font-size: 1.375rem;
+  color: var(--ion-color-medium);
+  margin-inline-end: 1rem;
+}
+
+/* Nombre a la izquierda, monto a la derecha */
+.cabecera {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.5rem;
+
+  h2 {
+    margin: 0;
+    font-weight: 600;
+  }
+}
+
+.monto {
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: var(--ion-text-color);
+}
+
+.detalle {
+  margin: 0.25rem 0 0.5rem;
+  font-size: 0.8125rem;
+  color: var(--ion-color-medium);
+}
+
+ion-progress-bar {
+  height: 6px;
+  border-radius: 3px;
+  margin-bottom: 0.25rem;
+}
+
+.estado-vacio {
+  padding: 3rem 1.5rem;
+  text-align: center;
+  color: var(--ion-color-medium);
+
+  ion-icon {
+    font-size: 3.5rem;
+    opacity: 0.45;
+  }
+
+  h2 {
+    margin: 0.75rem 0 0.25rem;
+    font-size: 1.0625rem;
+    font-weight: 600;
+  }
+
+  p {
+    margin: 0;
+    font-size: 0.875rem;
+  }
+}

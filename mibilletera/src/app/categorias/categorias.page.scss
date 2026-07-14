@@ -1,0 +1,44 @@
+// Reutiliza los estilos de formulario (ítems dentro de una tarjeta)
+@use '../../theme/formulario';
+
+ion-content {
+  --padding-bottom: 1.5rem;
+}
+
+.lista-categorias {
+  background: transparent;
+}
+
+.icono-categoria {
+  font-size: 1.375rem;
+  color: var(--ion-color-medium);
+  margin-inline-end: 1rem;
+}
+
+.icono-editar {
+  font-size: 1.125rem;
+  color: var(--ion-color-medium);
+  opacity: 0.6;
+}
+
+.estado-vacio {
+  padding: 3rem 1.5rem;
+  text-align: center;
+  color: var(--ion-color-medium);
+
+  ion-icon {
+    font-size: 3.5rem;
+    opacity: 0.45;
+  }
+
+  h2 {
+    margin: 0.75rem 0 0.25rem;
+    font-size: 1.0625rem;
+    font-weight: 600;
+  }
+
+  p {
+    margin: 0;
+    font-size: 0.875rem;
+  }
+}

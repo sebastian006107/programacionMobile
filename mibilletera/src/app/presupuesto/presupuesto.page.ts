@@ -4,6 +4,7 @@ import { AlertController } from '@ionic/angular';
 import { DbserviceService } from '../services/dbservice.service';
 import { Categoria } from '../models/categoria';
 import { Presupuesto } from '../models/presupuesto';
+import { mesActual } from '../utils/fecha';
 
 @Component({
   selector: 'app-presupuesto',
@@ -12,8 +13,10 @@ import { Presupuesto } from '../models/presupuesto';
   standalone: false,
 })
 export class PresupuestoPage implements OnInit {
-  // Mes en formato 'YYYY-MM' (el mismo que guarda la tabla presupuesto)
-  mes: string = new Date().toISOString().substring(0, 7);
+  // Mes en formato 'YYYY-MM' (el mismo que guarda la tabla presupuesto).
+  // Se calcula en hora local: con UTC, la noche del último día del mes ya mostraría
+  // el mes siguiente (Chile está 4 horas detrás de UTC).
+  mes: string = mesActual();
 
   categorias: Categoria[] = [];
   presupuestos: Presupuesto[] = [];

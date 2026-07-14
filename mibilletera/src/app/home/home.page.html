@@ -2,11 +2,14 @@
   <ion-toolbar>
     <ion-title>MiBilletera</ion-title>
     <ion-buttons slot="end">
+      <ion-button (click)="irResumen()" aria-label="Resumen">
+        <ion-icon slot="icon-only" name="stats-chart-outline"></ion-icon>
+      </ion-button>
       <ion-button (click)="irPresupuesto()" aria-label="Presupuestos">
         <ion-icon slot="icon-only" name="wallet-outline"></ion-icon>
       </ion-button>
-      <ion-button (click)="cerrarSesion()" aria-label="Cerrar sesión">
-        <ion-icon slot="icon-only" name="log-out-outline"></ion-icon>
+      <ion-button (click)="irPerfil()" aria-label="Mi cuenta">
+        <ion-icon slot="icon-only" name="person-circle-outline"></ion-icon>
       </ion-button>
     </ion-buttons>
   </ion-toolbar>
