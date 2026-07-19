@@ -5,7 +5,6 @@ import { of } from 'rxjs';
 // headless) no están disponibles.
 export function crearDbServiceMock() {
   return {
-    dbState: () => of(true),
     fetchGastos: () => of([]),
     fetchCategorias: () => of([]),
     fetchPresupuestos: () => of([]),
@@ -43,7 +42,7 @@ export function crearApiServiceMock() {
         euro: { codigo: 'euro', nombre: 'Euro', unidad_medida: 'Pesos', fecha: '', valor: 1000 },
       }),
     obtenerIndicadoresAsync: () => Promise.resolve({}),
-    obtenerIndicador: () => of({}),
     convertirTotal: () => Promise.resolve(0),
+    leerCache: () => null,
   };
 }

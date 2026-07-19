@@ -248,10 +248,6 @@ export class DbserviceService {
 
   // --- Observables que consumen las páginas ---
 
-  dbState(): Observable<boolean> {
-    return this.isDbReady.asObservable();
-  }
-
   fetchGastos(): Observable<Gasto[]> {
     return this.listaGastos.asObservable();
   }

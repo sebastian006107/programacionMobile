@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
-import { AlertController } from '@ionic/angular';
+import { AlertController, AnimationController } from '@ionic/angular';
 
 import { DbserviceService } from '../services/dbservice.service';
 import { ApiService } from '../services/api.service';
@@ -22,12 +22,19 @@ export class HomePage implements OnInit {
   moneda: 'dolar' | 'euro' = 'dolar';
   totalConvertido: number | null = null;
   cargandoConversion: boolean = false;
+  // true cuando los indicadores mostrados vienen de la caché (sin internet).
+  usandoCacheIndicadores: boolean = false;
+
+  // Referencias a elementos del template para animarlos con Ionic.
+  @ViewChild('tarjetaTotal', { read: ElementRef }) tarjetaTotal?: ElementRef;
+  @ViewChild('resultadoConv', { read: ElementRef }) resultadoConv?: ElementRef;
 
   constructor(
     private dbService: DbserviceService,
     private apiService: ApiService,
     private router: Router,
-    private alertController: AlertController
+    private alertController: AlertController,
+    private animationCtrl: AnimationController
   ) {}
 
   ngOnInit() {
@@ -48,16 +55,60 @@ export class HomePage implements OnInit {
     this.cargarIndicadores();
   }
 
+  // Cada vez que la vista entra, animamos la tarjeta del total (animación de Ionic).
+  ionViewDidEnter() {
+    this.animarTarjetaTotal();
+  }
+
+  // --- ANIMACIÓN DE IONIC #1: entrada de la tarjeta del total ---
+  // AnimationController: aparece con un desvanecido + deslizamiento hacia arriba.
+  private animarTarjetaTotal() {
+    if (!this.tarjetaTotal) {
+      return;
+    }
+    this.animationCtrl
+      .create()
+      .addElement(this.tarjetaTotal.nativeElement)
+      .duration(600)
+      .easing('ease-out')
+      .fromTo('opacity', '0', '1')
+      .fromTo('transform', 'translateY(20px)', 'translateY(0)')
+      .play();
+  }
+
+  // --- ANIMACIÓN DE IONIC #2: aparición del resultado de la conversión ---
+  // AnimationController con keyframes: escala tipo "pop" para destacar el monto.
+  private animarResultado() {
+    if (!this.resultadoConv) {
+      return;
+    }
+    this.animationCtrl
+      .create()
+      .addElement(this.resultadoConv.nativeElement)
+      .duration(500)
+      .easing('ease-out')
+      .keyframes([
+        { offset: 0, opacity: '0', transform: 'scale(0.8)' },
+        { offset: 0.6, opacity: '1', transform: 'scale(1.1)' },
+        { offset: 1, opacity: '1', transform: 'scale(1)' },
+      ])
+      .play();
+  }
+
   // --- CONSULTA ASÍNCRONA a la API: GET con HttpClient + subscribe ---
   // Trae los indicadores del día para mostrarlos en pantalla.
   cargarIndicadores() {
     this.apiService.obtenerIndicadores().subscribe({
       next: (datos) => {
         this.indicadores = datos;
+        this.usandoCacheIndicadores = false;
       },
       error: () => {
-        // Sin internet la app sigue funcionando; solo no se muestran los valores.
-        this.indicadores = null;
+        // Sin internet (o error 404 de red): mostramos los últimos valores
+        // guardados en caché para que la app siga siendo útil offline.
+        const cache = this.apiService.leerCache();
+        this.indicadores = cache;
+        this.usandoCacheIndicadores = cache != null;
       },
     });
   }
@@ -78,10 +129,12 @@ export class HomePage implements OnInit {
     this.cargandoConversion = true;
     try {
       this.totalConvertido = await this.apiService.convertirTotal(this.total, this.moneda);
+      // Espera a que Angular pinte el resultado (*ngIf) antes de animarlo.
+      setTimeout(() => this.animarResultado(), 0);
     } catch (e) {
       await this.mostrarAlerta(
         'Error de conexión',
-        'No se pudo consultar mindicador.cl. Revisa tu conexión a internet.'
+        'No se pudo consultar mindicador.cl y no hay valores guardados. Revisa tu conexión a internet.'
       );
     } finally {
       this.cargandoConversion = false;

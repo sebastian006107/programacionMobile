@@ -17,7 +17,7 @@
 
 <ion-content>
   <!-- Total calculado al vuelo (no se guarda en BD) -->
-  <ion-card class="tarjeta-total">
+  <ion-card class="tarjeta-total" #tarjetaTotal>
     <ion-card-header>
       <ion-card-subtitle>Total gastado</ion-card-subtitle>
       <ion-card-title class="monto-total">${{ total | number:'1.0-0' }}</ion-card-title>
@@ -37,6 +37,11 @@
       <p class="indicadores" *ngIf="indicadores">
         Dólar ${{ indicadores.dolar.valor | number:'1.2-2' }}
         · Euro ${{ indicadores.euro.valor | number:'1.2-2' }}
+      </p>
+      <!-- Persistencia offline: si no hay internet mostramos los últimos valores guardados -->
+      <p class="indicadores indicadores--cache" *ngIf="indicadores && usandoCacheIndicadores">
+        <ion-icon name="cloud-offline-outline"></ion-icon>
+        Sin conexión: mostrando últimos valores guardados.
       </p>
       <p class="indicadores indicadores--error" *ngIf="!indicadores">
         No se pudieron cargar los indicadores (sin conexión).
@@ -64,7 +69,7 @@
         {{ cargandoConversion ? 'Convirtiendo...' : 'Convertir' }}
       </ion-button>
 
-      <p class="resultado-conversion" *ngIf="totalConvertido != null">
+      <p class="resultado-conversion" #resultadoConv *ngIf="totalConvertido != null">
         {{ moneda === 'dolar' ? 'US$' : '€' }}{{ totalConvertido | number:'1.2-2' }}
       </p>
     </ion-card-content>

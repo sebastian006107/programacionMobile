@@ -23,6 +23,17 @@
   &--error {
     color: var(--ion-color-danger);
   }
+
+  &--cache {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+    color: var(--ion-color-warning);
+
+    ion-icon {
+      font-size: 1rem;
+    }
+  }
 }
 
 /* El ion-item del selector va dentro de una tarjeta: quitamos su padding lateral */
